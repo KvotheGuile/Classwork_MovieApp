@@ -22,6 +22,9 @@ fun AppNavigation(modifier: Modifier = Modifier){
                     navController.navigate("movies"){
                         popUpTo("login") { inclusive = true }
                     }
+                },
+                onRegister = {
+                    navController.navigate("register")
                 }
             )
         }
@@ -49,5 +52,17 @@ fun AppNavigation(modifier: Modifier = Modifier){
                 onBack = { navController.popBackStack() }
             )
         }
+
+        composable("register") {
+            RegisterScreen (
+                onRegisterOk = {
+                    navController.navigate("movies") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                },
+                onCancel = { navController.popBackStack() }
+            )
+        }
+
     }
 }
