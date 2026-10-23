@@ -13,9 +13,15 @@ import com.google.firebase.auth.auth
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier){
     val navController = rememberNavController()
+    val start = if (Firebase.auth.currentUser != null) {
+        "movies"
+    } else{
+        "login"
+    }
+
     NavHost(
         navController = navController,
-        startDestination = "login",
+        startDestination = start,
         modifier = modifier
     ){
         composable("login"){
