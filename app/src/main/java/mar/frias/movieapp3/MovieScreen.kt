@@ -31,18 +31,32 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.TextButton
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 
 @Composable
-fun MoviesScreen(onMovieClicked: (Int) -> Unit){
+fun MoviesScreen(
+    onMovieClicked: (Int) -> Unit,
+    onLogout: () -> Unit,
+    email: String
+){
     Column(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Movies",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(16.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    text = "Movies",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Text(text = email, style = MaterialTheme.typography.bodySmall)
+            }
+            TextButton(onClick = onLogout) { Text("Log Out") }
+        }
 
         LazyColumn(
             contentPadding = PaddingValues(16.dp),
@@ -101,6 +115,6 @@ fun MovieItem(movie: Movie, onClick: () -> Unit){
 @Composable
 fun MoviesScreenPreview(){
     MovieApp3Theme() {
-        MoviesScreen(onMovieClicked = { })
+        MoviesScreen(onMovieClicked = { }, onLogout = { }, email = "test@email.com")
     }
 }

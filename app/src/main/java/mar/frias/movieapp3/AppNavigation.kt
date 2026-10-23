@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier){
@@ -33,7 +35,14 @@ fun AppNavigation(modifier: Modifier = Modifier){
             MoviesScreen (
                 onMovieClicked = { id ->
                     navController.navigate("detail/$id")
-                }
+                },
+                onLogout = {
+                    Firebase.auth.signOut()
+                    navController.navigate("login") {
+                        popUpTo("movies") { inclusive = true }
+                    }
+                },
+                email = Firebase.auth.currentUser?.email ?: ""
             )
         }
 
